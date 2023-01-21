@@ -1,0 +1,40 @@
+//Function to return a list containing the level order traversal in spiral form.
+vector<int>findSpiral(Node *root)
+{
+    //Your code here
+   vector<int>ans;
+    
+    if(root==NULL)   return ans;
+    queue<Node*> q;
+    q.push(root);
+    
+    bool odd=true;
+    
+    while(!q.empty()){
+        int size = q.size();
+        
+        vector<int> level;
+        for(int i=0;i<size;i++){
+            Node *node= q.front();
+            q.pop();
+            
+            level.push_back(node->data);
+            if(node->left!=NULL)   q.push(node->left);
+            if(node->right!=NULL)   q.push(node->right);
+          //  level.push_back(node->data);
+        }
+           if(odd){
+           reverse(level.begin() ,level.end());
+          }
+        
+        odd =!odd;
+       
+       for(int i=0;i<level.size();i++){
+           ans.push_back(level[i]);
+       }
+   }
+      //  ans.push_back(level);
+    //}
+    
+    return ans;
+}
