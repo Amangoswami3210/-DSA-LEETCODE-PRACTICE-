@@ -1,0 +1,27 @@
+class Solution {
+public:
+//iterative  approach  using stack 
+ // vector <int>  ans;
+    vector<int> preorderTraversal(TreeNode* root) {
+  // Your code here
+  vector<int>preorder;
+  if(root==NULL)   return preorder;
+
+  stack<TreeNode*> stk;
+stk.push(root);
+
+while(!stk.empty()){
+    TreeNode* topnode=stk.top();
+    preorder.push_back(topnode->val);
+    stk.pop();
+
+if(topnode->right!=NULL) 
+    stk.push(topnode->right);
+
+if(topnode->left!=NULL) 
+    stk.push(topnode->left);
+
+}
+   return preorder;
+    }
+};
