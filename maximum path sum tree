@@ -1,0 +1,25 @@
+class Solution {
+public:
+
+    int maxpath(TreeNode*root,int &ans){
+      
+         if(!root) 
+         return 0;
+         
+          int left=  maxpath( root->left , ans);
+          int right= maxpath( root->right , ans);
+
+          int straightpath = max( root->val , max(left+root->val,right+root->val));
+          int curvedpath   = left+right+root->val;
+          ans = max( ans ,max( straightpath , curvedpat ));
+
+          return straightpath;
+
+    }
+    int maxPathSum(TreeNode* root) {
+        int ans =INT_MIN;
+        maxpath(root,ans);
+        return ans;
+
+    }
+};
