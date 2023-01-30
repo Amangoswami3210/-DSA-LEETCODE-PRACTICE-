@@ -1,0 +1,58 @@
+
+bool  isleaf(Node* root){                              // check leaf node 
+           return !root->left && !root->right;
+      }
+      
+void addleft( Node* root , vector <int> &ans ){      // add left node only 
+      Node*  curr=  root->left;
+        while(curr){
+        if(!isleaf(curr))   ans.push_back(curr->data);
+        if(curr-> left )   
+        curr=curr->left;
+        else
+        curr=curr->right;
+    }
+}
+
+void addright( Node* root , vector <int> &ans ){   //add right node  
+                                                   //but in ans fill in reverse order(tmp)
+    Node*  curr =  root-> right;
+    vector<int>  tmp;                          
+        while(curr){
+        if(!isleaf(curr))   tmp.push_back(curr->data);
+        if( curr-> right)   
+        curr=curr->right;
+        else
+        curr=curr->left;
+    }
+    for( int i =tmp.size()-1;  i>=0 ;--i){
+        ans.push_back( tmp[i]);
+    }
+}
+
+void addleaves( Node* root , vector<int> &ans){   // adding leaves  INORDER traverse 
+    if(isleaf(root)){
+          ans.push_back(root->data);
+         // return;
+    }
+    if(root->left)    addleaves(root->left , ans);         
+    if(root->right)   addleaves(root->right,ans);
+ }
+
+class Solution {
+public:
+    vector <int> boundary(Node *root)
+    {
+        vector<int> ans;        //  ek vector bnaya ans store krne k liy 
+        
+        if(!root)   return ans;    // check empty tree toh nhi hai , otherwise return krdo ans ko
+        
+        if(!isleaf(root))    ans.push_back(root->data);   // check leafnode prr toh nhi hai hum , otherwise 
+                                                         // ans mai store krdo 
+        addleft(root,ans);             // left insert kro  without adding  leaf node
+        addleaves(root,ans);          //then , leaf node insert kro ans mai 
+        addright(root,ans);           // last mai right node insert krna hai but reverse order mai 
+    
+        return ans;
+    }
+};
